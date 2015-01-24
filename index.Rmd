@@ -1,0 +1,53 @@
+---
+title       : A multivariable regression example using R
+subtitle    : 
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        :  standalone # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+This presents a multivariable regression example using R. We will use the "mtcars" data to analyze the imporant factor that affets the "miles per gallon".
+
+```{r,echo=TRUE}
+library(datasets); data(mtcars); require(stats); require(graphics)
+summary(lm(mpg~disp+hp+wt,data=mtcars))$coefficients
+```
+
+--- .class #id 
+
+## Summary of data
+```{r,echo=TRUE}
+summary(lm(mpg~disp+hp+wt,data=mtcars))
+```
+
+--- .class #id 
+
+## The regression
+```{r,echo=TRUE}
+pairs(mtcars,panel=panel.smooth,main='mtcars data')
+```
+
+
+--- .class #id 
+
+## Multilevel factor
+Except the "miles per gallon", there might exsits some relationship among the left items, we consider a multilevel factor level. We guess that the "drat" and "qsec" might are linear dependent on "disp", "hp", and "wt".
+So, we need the 2 levels.
+
+$$Y_1=\beta_{10}+\beta_{11}X_{1}+\beta_{12}X_2+\beta_{13}X_3,$$
+$$Y_2=\beta_{20}+\beta_{21}X_{1}+\beta_{22}X_2+\beta_{23}X_3,$$
+where 
+
+1. $Y_1$ is "drat", $Y_2$ is "qsec";
+
+2. $X_{1}$ is "disp", $X_{2}$ is "hp", $X_{3}$ is "wt";
+
+3. $\beta_{ij}$ are the coefficients.
+
